@@ -30,10 +30,15 @@ kotlin {
     
     sourceSets {
         val desktopMain by getting
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
         
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -42,9 +47,24 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+
+            implementation(libs.koin.core)
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.koin)
+
+            // https://mvnrepository.com/artifact/io.coil-kt.coil3/coil-core
+            implementation(libs.coil3.core)
+
+            // For QR codes
+            implementation(libs.qrose)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation(libs.ktor.client.okhttp)
         }
     }
 }
